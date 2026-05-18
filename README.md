@@ -34,15 +34,46 @@ Waypoint list → AirSim moveToPositionAsync()
 
 Each grid cell maps to a real-world coordinate in AirSim's NED frame. The planner runs once at launch, then the drone executes the path.
 
-## Setup
+## 🛠️ Step-by-Step "How to Run" & Simulator Setup
 
+To deploy and execute this 3D A* path planning model in the high-fidelity AirSim simulator, follow these setup instructions:
+
+### 1. Configure the AirSim Simulator
+1. Download a pre-compiled AirSim binary package, such as **AirSimNH (Neighborhood)**, or build one using Unreal Engine.
+2. Unpack the zip file.
+3. Open the folder and launch the environment executable (`AirSimNH.exe` or `./AirSimNH.sh`).
+4. Select **No** when prompted to use a car, defaulting to the Multirotor (Quadcopter) model.
+
+### 2. Configure Python Environment
+1. Clone this repository and navigate into the folder:
+   ```bash
+   git clone https://github.com/yogesh031020/drone-path-planning-astar.git
+   cd drone-path-planning-astar
+   ```
+2. Install the necessary physics simulator bridge, mathematical processing, and visualization libraries:
+   ```bash
+   pip install airsim numpy matplotlib
+   ```
+
+### 3. Run the Path Planning Simulation
+1. Launch the primary path planner script:
+   ```bash
+   python drone_path_planning.py
+   ```
+2. The script will connect to AirSim, request control, arm the motors, and automatically take off.
+3. Once hover is established, the C++ compiled or Python-based A* algorithm will calculate the optimal 3D path through the grid matrix, displaying the path points in your console.
+4. The drone will execute the flight coordinates smoothly.
+5. After reaching the goal point, the drone will autonomously descend and land safely.
+6. A visual plot representing the completed flight trajectory will be generated and saved to your root directory as `airsim_path.png`.
+
+### 4. Direct 3D Path Visualization
+To view the computed path plotted in a 3D matplotlib wireframe environment without running the full AirSim physics simulator, run:
 ```bash
-pip install airsim numpy matplotlib
-# Launch AirSim Neighborhood environment
-python drone_path_planning.py
+python visualize_path.py
 ```
 
-The script takes off, computes the path, flies it, and lands. Path visualization saved to `airsim_path.png`.
+---
+
 
 ## Results
 
